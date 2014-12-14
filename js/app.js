@@ -5,3 +5,11 @@ $(document).ready(function(){
     });
     
 });
+
+
+var LUFactor = angular.module('LUFactor', []);
+
+LUFactor.controller('lufStartCtrl', ['$scope', function($scope){
+    $scope.greeting=""
+    
+}]);

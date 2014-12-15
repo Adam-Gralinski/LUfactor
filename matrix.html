@@ -1,0 +1,16 @@
+<p>Fill matrix, or click Randomize</p>
+<form>
+    <fieldset>
+        <ul class="draw_matrix">
+            <li ng-repeat="i in len()">
+                <input ng-repeat="j in len()" type="number"  ng-model="matrix.array[i][j]">
+            </li>
+        </ul>
+
+        <button class="toFill" ng-click="update(sizeForm)">Next</button>
+        <button class="reset" ng-click="refresh()">Refresh</button>
+
+    </fieldset>
+</form>
+<pre>{{matrix}}</pre>
+<pre>{{matrix.array[2][2]}}</pre>

@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/main.css" />
         <title>LU Factorization Algorithm</title>
     </head>
-    <body>  
+    <body data-ng-app="LUFactor" >
         
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -26,13 +26,28 @@
 
       <div class="starter-template">
         <h1>Lu Factorization algorithm</h1>
-        <p class="lead"></p>
-            <div data-ng-app="">
-              <p>Name: <input type="text" data-ng-model="name"></p>
-              <p data-ng-bind="name"></p>
-            </div>
-      </div>
+        <p class="lead">Welcome</p>
+        <div class="size_form" ng-controller="matrixSizeCtrl">
+            <p>Give me size of matrix. If you want fill it, size should be less than 5.</p>
+            <form>
+                <fieldset>
+                    <ul>
+                        <li>
+                            <label>Matrix's size</label>
+                            <input type="number" ng-model="sizeForm.size" >
+                            <p>{{LUFactor.size}}</p>
+                        </li>
+                    </ul>
+                        <button class="toFill" ng-click="update(sizeForm)">Next</button>
+                        <button class="reset" ng-click="reset()">Reset</button>
 
+                </fieldset>
+            </form>
+            <pre>{{matrix}}</pre>
+        </div>
+        <div ng-controller="matrixValCtrl"  ng-include="'matrix.html'">
+        </div>
+      </div>
     </div><!-- /.container -->
         <div id="about_me--dialog" style="display:none" title="Program przygotował">Adam Graliński<br/>index: 108579<br/>Przedmiot: Elementy Analizy Numerycznej</div>
         <script src="js/angular.js"></script>

@@ -1,52 +1,47 @@
-$(document).ready(function(){
-    $('.about_me').on('click', function(){
+$(document).ready(function () {
+    $('.about_me').on('click', function () {
         $("#about_me--dialog").dialog();
     });
+
 });
 
 
 var LUFactor = angular.module('LUFactor', []);
 
-LUFactor.service('matrixResources',function(){
-        matrix ={
-            size : 3,
-            array : []
-        };
-        return matrix;
+LUFactor.service('matrixResources', function () {
+    this.matrix = {
+        size: 0,
+        array: []
+    };
 });
 
-LUFactor.controller('lufCtrl', ['$scope', function($scope){
 
+LUFactor.controller('matrixSizeCtrl', ['$scope', 'matrixResources', function ($scope, matrixResources) {
+    $scope.update = function (sizeForm) {
+        matrixResources.matrix.size = angular.copy(sizeForm.size);
+    };
+    $scope.reset = function () {
+        matrixResources.matrix = {};
+    };
+    $scope.reset();
 }]);
 
-LUFactor.controller('matrixSizeCtrl', ['$scope', 'matrixResources', function($scope, matrixResources){
-        $scope.matrix = matrixResources;
-
-        $scope.update = function(sizeForm) {
-            matrixResources.size = angular.copy(sizeForm.size);
-        };
-        $scope.reset = function() {
-            $scope.matrix = {};
-        };
-        $scope.reset();
-}]);
-
-LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function($scope, matrixResources){
-    $scope.matrix = matrixResources;
-    $scope.len = function(){
-        array =[];
-        for (i=0; i<matrix.size;i++){
+LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function ($scope, matrixResources) {
+    $scope.showMe = function(){
+        return matrixResources.matrix.size
+    };
+    $scope.len = function () {
+        var array = [];
+        for (var i = 0; i < matrixResources.matrix.size; i++) {
             array.push(i);
         }
         return array;
     };
-    $scope.refresh = function(){
-      $scope.$apply();
+    $scope.refresh = function () {
+        $scope.$apply();
     };
-    $scope.draw = function(){
+    $scope.draw = function () {
 
     };
 }]);
-
-
 

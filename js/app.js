@@ -11,22 +11,26 @@ var LUFactor = angular.module('LUFactor', []);
 LUFactor.service('matrixResources', function () {
     this.matrix = {
         size: 0,
-        array: []
+        array: [],
+        draw: function(){
+            return numeric.LU(this.array);
+        }
     };
 });
 
 
 LUFactor.controller('matrixSizeCtrl', ['$scope', 'matrixResources', function ($scope, matrixResources) {
     $scope.update = function (sizeForm) {
-        matrixResources.matrix.size = angular.copy(sizeForm.size);
+        return matrixResources.matrix.size = angular.copy(sizeForm.size);
     };
     $scope.reset = function () {
-        matrixResources.matrix = {};
+        return matrixResources.matrix.size = 0;
     };
     $scope.reset();
 }]);
 
 LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function ($scope, matrixResources) {
+    $scope.array = [];
     $scope.showMe = function(){
         return matrixResources.matrix.size
     };
@@ -38,10 +42,20 @@ LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function ($sc
         return array;
     };
     $scope.refresh = function () {
-        $scope.$apply();
+        $scope.array = [];
+    };
+    $scope.show = function(){
+        $scope.tmp = matrixResources.matrix;
     };
     $scope.draw = function () {
-
+        $scope.change = $.map($scope.array, function(value) {
+            return [
+                $.map(value, function(value1) {
+                return [value1];
+            })]
+        });
+        matrixResources.matrix.array = $scope.change;
+        $scope.result = matrixResources.matrix.draw();
     };
 }]);
 

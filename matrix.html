@@ -3,14 +3,13 @@
     <fieldset>
         <ul class="draw_matrix">
             <li ng-repeat="i in len()">
-                <input ng-repeat="j in len()" type="number"  ng-model="matrix.array[i][j]">
+                <input ng-repeat="j in len()" type="number"  ng-model="array[i][j]">
             </li>
         </ul>
 
-        <button class="toFill" ng-click="update(sizeForm)">Next</button>
-        <button class="reset" ng-click="refresh()">Refresh</button>
+        <button class="toFill" ng-click="draw()">Next</button>
+        <button class="reset" ng-click="refresh()">Clear</button>
 
     </fieldset>
 </form>
-<pre>{{matrix}}</pre>
-<pre>{{matrix.array[2][2]}}</pre>
+        <pre>Result: {{result}}</pre>

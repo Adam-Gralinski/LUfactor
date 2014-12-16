@@ -12,8 +12,30 @@ LUFactor.service('matrixResources', function () {
     this.matrix = {
         size: 0,
         array: [],
+        initMatrix: function(){
+            this.array = [];
+            for(var x=0; x<this.size;x++){
+                this.array.push([]);
+            }
+            for(var x=0; x<this.size; x++){
+                for(var y=0; y<this.size; y++){
+                    this.array[x].push(null);
+                }
+            }
+        },
         draw: function(){
             return numeric.LU(this.array);
+        },
+        clearArray: function(){
+           this.initMatrix();
+        },
+        randomize: function(){
+            this.initMatrix();
+            for(var x=0; x<this.size; x++){
+                for(var y=0; y<this.size; y++){
+                    this.array[x][y] = Math.floor(Math.random()*50+1);
+                }
+            }
         }
     };
 });
@@ -24,6 +46,7 @@ LUFactor.controller('matrixSizeCtrl', ['$scope', 'matrixResources', function ($s
         return matrixResources.matrix.size = angular.copy(sizeForm.size);
     };
     $scope.reset = function () {
+        matrixResources.matrix.clearArray();
         return matrixResources.matrix.size = 0;
     };
     $scope.reset();
@@ -35,17 +58,14 @@ LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function ($sc
         return matrixResources.matrix.size
     };
     $scope.len = function () {
-        var array = [];
+        var tmpArray = [];
         for (var i = 0; i < matrixResources.matrix.size; i++) {
-            array.push(i);
+            tmpArray.push(i);
         }
-        return array;
+        return tmpArray;
     };
     $scope.refresh = function () {
-        $scope.array = [];
-    };
-    $scope.show = function(){
-        $scope.tmp = matrixResources.matrix;
+        return $scope.array = [];
     };
     $scope.draw = function () {
         $scope.change = $.map($scope.array, function(value) {
@@ -57,5 +77,9 @@ LUFactor.controller('matrixValCtrl', ['$scope', 'matrixResources', function ($sc
         matrixResources.matrix.array = $scope.change;
         $scope.result = matrixResources.matrix.draw();
     };
+    $scope.randomize = function(){
+        matrixResources.matrix.randomize();
+        $scope.array = matrixResources.matrix.array;
+    }
 }]);
 

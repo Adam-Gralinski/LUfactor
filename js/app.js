@@ -24,7 +24,7 @@ LUFactor.service('matrixResources', function () {
             }
         },
         draw: function(){
-            return numeric.LU(this.array);
+            //return numeric.cLU(this.array);
         },
         clearArray: function(){
            this.initMatrix();

@@ -54,6 +54,75 @@
         <script src="js/jquery.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         <script src="js/bootstrap.js"></script>
+        <script src="js/NumJS.js"></script>
+        <script src="js/NumJS.GenOps.js"></script>
+        <script src="js/NumJS.Matrix.js"></script>
+        <script src="js/NumJS.MatLU.js"></script>
         <script src="js/app.js"></script>
+        
+        <script>
+
+            
+var LUdec  = function(A, dimmension){
+    var workspace = {
+        n: dimmension,
+        A: A,
+        L: [],
+        U: []
+    };
+    
+    for(var x=0; x<workspace.n;x++){
+                workspace.L.push([]);
+                workspace.U.push([]);
+    }
+    for(var x=0; x<workspace.n; x++){
+        for(var y=0; y<workspace.n; y++){
+            workspace.L[x].push(null);
+            workspace.U[x].push(null);
+        }
+    }
+    console.log(workspace.A);
+    console.log(workspace.L);
+    console.log(workspace.U);
+    for (var j = 1; j <= workspace.n; ++j) {
+        var i, k;
+        for (var i = 1; i < (j + 1); ++i) {
+            var s1 = 0;
+            for (k = 1; k < i; ++k) {
+                //s1 += get("U", k, j) * get("L", i, k);
+                s1 += workspace.U[k-1][j-1] * workspace.L[i-1][k-1];
+            }
+            console.log(s1);
+            //set("U", i, j, get("PA", i, j) - s1);
+            workspace.U[i-1][j-1] = workspace.A[i-1][j-1] - s1;
+        }
+        //console.log(workspace.U);
+        for (i = j + 1; i <= workspace.n; ++i) {
+            var s2 = 0;
+            for (k = 1; k < j; ++k) {
+                //s2 += get("U", k, j) * get("L", i, k);
+                s2 += workspace.U[k-1][j-1] * workspace.L[i-1][k-1]
+            }
+
+            //var dividend = get("PA", i, j) - s2;
+            //var divisor = get("U", j, j);
+            var dividend = workspace.A[i-1][j-1] - s2;
+            var divisor = workspace.U[j-1][j-1];
+            var res = dividend / divisor;
+
+            //set("L", i, j, res);
+            workspace.L[i-1][j-1] = res;
+        }
+    }
+    return workspace;
+}
+var A = [[1,2,3],[4,5,6],[7,8,9]];
+console.log(A);
+var result = LUdec(A, 3);
+            
+            console.log(result.L);
+    console.log(result.U);
+
+        </script>
     </body>
 </html>

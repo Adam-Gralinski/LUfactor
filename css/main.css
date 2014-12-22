@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 body {
   padding-top: 50px;
 }
@@ -20,6 +23,23 @@ ul li{
     height:50px;
     width:50px;
     margin:1px;
+}
+
+.result{
+    margin-top:20px;
+    display:flex;
+}
+.result_table{
+    border:1px solid #ccc;
+    table-layout: fixed; 
+    border-radius:10px;
+    padding:2%;
+    width: 45%;
+    margin:2%;
+}
+.result_table td{
+    display: table-cell;
+    overflow:hidden;
 }
 
 

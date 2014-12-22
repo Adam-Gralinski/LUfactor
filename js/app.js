@@ -24,7 +24,9 @@ LUFactor.service('matrixResources', function () {
             }
         },
         draw: function(){
-            //return numeric.cLU(this.array);
+            this.result = this.LU(this.array, this.size);
+            console.log(this.result);
+            return this.result;
         },
         clearArray: function(){
            this.initMatrix();
@@ -36,7 +38,53 @@ LUFactor.service('matrixResources', function () {
                     this.array[x][y] = Math.floor(Math.random()*50+1);
                 }
             }
-        }
+        },
+        LU : function(A, dimmension){
+                //Workspace initialization 
+                var workspace = {
+                    n: dimmension,
+                    A: A,
+                    L: [],
+                    U: []
+                };
+                // Fill U matrix with 0 and L with Identity matrix.
+                for(var x=0; x<workspace.n;x++){
+                            workspace.L.push([]);
+                            workspace.U.push([]);
+                }
+                for(var x=0; x<workspace.n; x++){
+                    for(var y=0; y<workspace.n; y++){
+                        if(x===y){
+                            workspace.L[x].push(1)
+                        }else{
+                            workspace.L[x].push(0);
+                        }
+                        workspace.U[x].push(0);
+                    }
+                }
+                // Proper algorithm
+                for (var j = 1; j <= workspace.n; ++j) {
+                    var i, k;
+                    for (var i = 1; i < (j + 1); ++i) {
+                        var s1 = 0;
+                        for (k = 1; k < i; ++k) {
+                            s1 += workspace.U[k-1][j-1] * workspace.L[i-1][k-1];
+                        }
+                        workspace.U[i-1][j-1] = workspace.A[i-1][j-1] - s1;
+                    }
+                    for (i = j + 1; i <= workspace.n; ++i) {
+                        var s2 = 0;
+                        for (k = 1; k < j; ++k) {
+                            s2 += workspace.U[k-1][j-1] * workspace.L[i-1][k-1]
+                        }
+                        var dividend = workspace.A[i-1][j-1] - s2;
+                        var divisor = workspace.U[j-1][j-1];
+                        var res = dividend / divisor;
+                        workspace.L[i-1][j-1] = res;
+                    }
+                }
+                return workspace;
+            }
     };
 });
 

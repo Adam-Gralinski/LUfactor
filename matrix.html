@@ -1,5 +1,5 @@
 <p>Fill matrix, or click Randomize</p>
-<form>
+<form ng-show="showMe() < 5">
     <fieldset>
         <ul class="draw_matrix">
             <li ng-repeat="i in len()">
@@ -7,10 +7,26 @@
             </li>
         </ul>
 
+        
+
+    </fieldset>
+        
+</form>
         <button class="toFill" ng-click="draw()">Next</button>
         <button class="reset" ng-click="refresh()">Clear</button>
         <button class="reset" ng-click="randomize()">Randomize</button>
-
-    </fieldset>
-</form>
-        <pre>Result: {{result}}</pre>
+        <pre class="result">
+        <table class="result_table table-bordered">
+            <th>U:</th>
+            <tr ng-repeat="i in len()">
+                <td ng-repeat="j in len()" >{{result.U[i][j]}}</td>
+            </tr>
+        </table>
+        <table class="result_table table-bordered">
+            <th>L:</th>
+            <tr ng-repeat="i in len()">
+                <td ng-repeat="j in len()" >{{result.L[i][j]}}</td>
+            </tr>
+        </table>
+        
+        </pre>
